@@ -1,0 +1,58 @@
+@charset"utf-8";
+*{
+	box-sizing:border-box;
+}
+html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p,
+dl, dd, ol, form, input, textarea, th, td, select {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-weight: normal;
+}
+html {font-size: 62.5%;}
+html,body {
+	min-height: 100%;
+}
+a{
+	text-decoration:none;
+	color:#000;
+}
+
+body{
+	font-family: "微软雅黑";
+	color:#000;
+	font-size: 1.4rem;
+}
+img{
+	border:0;
+	/*vertical-align: text-bottom;     !*解决文字与图片对齐问题*!*/
+}
+i{
+	font-style: normal;
+}
+/*浮动*/
+
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+
+/*清楚浮动*/
+
+.clearfix{    /*清除ie浮动*/
+	*zoom:1;
+}
+.clearfix:after{
+	clear:both;
+}
+.clearfix:before,.clearfix:after{
+	content:" ";
+	display: table;
+}
+.df{
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+}

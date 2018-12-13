@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>京东购物车</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+<div id="app">
+    <div class="header-wrap df">
+        <div class="header-left"><</div>
+        <div class="header-right">购物车</div>
+    </div>
+    <div class="content-wrap df" v-for="(item,index) in shopListArr" :key="index">
+        <div class="content-left">
+            <a href="javascript:;" class="selected-img" :class="{'check':item.checked}" @click="checkProduct(item)"></a>
+        </div>
+        <div class="content-center">
+            <img :src="item.shopImage" alt="">
+        </div>
+        <div class="content-right">
+            <p v-text="item.shopName"></p>
+            <div class="price-wrap df">
+                <p class="price-left">{{item.shopPrice | moneyFormat(item.shopPrice)}}</p>
+                <p class="price-right">{{item.shopNumber * item.shopPrice | moneyFormat(item.shopNumber * item.shopPrice)}}</p>
+            </div>
+            <div class="btn-wrap df">
+                <div class="btn-left-wrap df">
+                    <span class="btn-add" @click="singlePrice(item,false)">-</span>
+                    <input type="text" v-model="item.shopNumber" placeholder="item.shopNumber">
+                    <span class="btn-add" @click="singlePrice(item,true)">+</span>
+                </div>
+                <div class="btn-right-wrap" @click="deleteShop(item)">
+                    <img src="images/deleteIcon.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-wrap df">
+        <div class="footer-left">
+            <a href="javascript:;" class="selected-img" :class="{'check':selectAllFlag}" @click="selectAll(true)"></a>
+            <span>全选</span>
+            <span @click="selectAll(false)">取消全选</span>
+            <span>合计:</span>
+            <span>{{totalAllPrice | moneyFormat(totalAllPrice)}}</span>
+        </div>
+    </div>
+    <!--遮罩-->
+    <div class="mark-wrap" :class="{'showHide':markState}">
+        <div class="mark-content-wrap">
+            <div class="panel_title">您确认要删除这个商品吗?</div>
+            <div class="panel_footer">
+                <button class="cancel" @click="cancel">取消</button>
+                <button class="submit" @click="deleteSubmit">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="lib/vue.js"></script>
+<script src="lib/vue-resource.js"></script>
+<script src="component/shopCart.js"></script>
+<!--<script src="component/jindong.js"></script>-->
+</body>
+<style>
+    .header-wrap{
+        width:100%;
+        height: 50px;
+        background: #f1f1f1;
+        line-height: 50px;
+    }
+    .header-left{
+        width: 47%;
+        margin-left: 2%;
+    }
+    .header-right{
+        width: 51%;
+    }
+    .content-wrap{
+        width: 100%;
+        align-items:flex-start;
+    }
+    .content-left{
+        width: 8%;
+        margin-left: 2%;
+    }
+    .selected-img{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: url("images/gou.png") no-repeat;
+        background-size: 30px 30px;
+    }
+    .check{
+        background: url("images/gou-red.png") no-repeat;
+        background-size: 30px 30px;
+    }
+    .content-center {
+        width: 20%;
+    }
+    .content-center img{
+        width: 109px;
+        height: 109px;
+    }
+    .content-right{
+        width: 70%;
+        margin:0 20px;
+    }
+    .price-right{
+        color: red;
+    }
+    .btn-right-wrap img{
+        width: 46px;
+        height: 42px;
+    }
+    .btn-left-wrap{
+        width: 70px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border:1px solid #ccc;
+    }
+    .btn-left-wrap span.btn-add{
+        display:inline-block;
+        width: 20px;
+        height: 100%;
+        cursor:pointer;
+    }
+    .btn-left-wrap input {
+        width: 30px;
+        height: 20px;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
+        vertical-align: bottom;
+        border:1px solid #ccc;
+    }
+    .footer-wrap{
+        width:100%;
+        height: 50px;
+        background: #f5c6cb;
+        position:fixed;
+        bottom:0;
+    }
+    .footer-left{
+        line-height: 50px;
+    }
+
+    .mark-wrap{
+        width:100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0,0,0,.5);
+        left:0;
+        top:0;
+    }
+    .mark-wrap.showHide{
+        display: none;
+    }
+    .mark-content-wrap{
+        width:300px;
+        height: 200px;
+        background: #fff;
+        position: absolute;
+        left:0;
+        top:0;
+        bottom: 0;
+        right:0;
+        margin:auto;
+        text-align: center;
+    }
+    .panel_title{
+        padding:50px 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .panel_footer button{
+        border: 0;
+        color: #fff;
+        padding:0 10px;
+        line-height: 25px;
+        cursor:pointer;
+    }
+    .cancel{
+        margin-right:20px;
+        background: blue;
+    }
+    .submit{
+        margin-left: 20px;
+        background: red;
+    }
+</style>
+</html>
